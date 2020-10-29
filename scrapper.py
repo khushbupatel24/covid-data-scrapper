@@ -1,3 +1,5 @@
+import requests
+import base64
 import csv
 import json
 import pandas as pd
@@ -7,7 +9,7 @@ from  urllib.request  import urlretrieve as retrieve
 
 def filter():
     col_list = ["prname", "pruid","date","numconf","numdeaths","numtotal","numtested","numrecover","percentrecover","numtoday","percentoday","ratetotal","ratedeaths","percentactive","numdeathstoday","percentdeath","percentactive"]
-    
+
     yesterday = date.today() - timedelta(days=1)
     print("Date:", yesterday)
 
