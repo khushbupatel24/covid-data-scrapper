@@ -19,8 +19,3 @@ def filter():
 
 filter()
 
-# def j():
-   
-#     df = pd.read_csv('covidData.csv')
-#     df.to_json (r'a.json')
-# j()
