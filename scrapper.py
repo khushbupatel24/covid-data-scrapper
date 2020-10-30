@@ -9,17 +9,20 @@ from  urllib.request  import urlretrieve as retrieve
 
 def filter():
     col_list = ["prname", "pruid","date","numconf","numdeaths","numtotal","numtested","numrecover","percentrecover","numtoday","percentoday","ratetotal","ratedeaths","percentactive","numdeathstoday","percentdeath","percentactive"]
-
+    col1=["prname","numdeaths"] # columns for death chart
     yesterday = date.today() - timedelta(days=1)
     print("Date:", yesterday)
 
     df = pd.read_csv("https://health-infobase.canada.ca/src/data/covidLive/covid19-download.csv",usecols=col_list)
     df['date_filter'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
     df_filtered = df[(df['date_filter'] == yesterday.strftime('%Y-%m-%d'))]
-    #df_filtered.to_csv("covidData.csv")
-    df_filtered.to_json (r'covidData.json')
+    d=df_filtered.filter(col1) #filter by columns
+    d=d.rename(columns={"prname": "province", "numdeaths": "number of deaths"}) #renaming columns
+    d=d.set_index("province") #changing keys
+    d.to_json (r'Death.json')
+   
 
-    data = open("covidData.json", "r").read()
+    data = open("Death.json", "r").read()
 
     token = "385b412e10720f3ea07bef43cf810bde19e1d828"
     owner = 'khushbupatel24'
