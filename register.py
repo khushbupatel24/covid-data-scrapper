@@ -1,3 +1,4 @@
+import requests
 from cryptography.fernet import Fernet
 import mysql.connector
 from mysql.connector import Error
@@ -8,7 +9,13 @@ db_host = "localhost"
 db_password = ""
 db_user = "root"
 
-def user():
+def user(request):
+     if request.method=='POST':
+        if request.post.get('name') and request.post.get('email') and request.post.get('password') and request.post.get('ID'):
+             n=request.post.get('name')
+             e=request.post.get('email')
+             d=request.post.get('password')
+             p=request.post.get('ID')
     n="amrit"
     e="abd@gmail.com"
     d=2132132
@@ -42,7 +49,7 @@ def insert(n,e,p,id):
                 connection.close()
                 print("Connection is closed")
 
-user()
+user(request)
 
 
 
