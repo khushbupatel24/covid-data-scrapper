@@ -16,11 +16,11 @@ def user(request):
              e=request.post.get('email')
              d=request.post.get('password')
              p=request.post.get('ID')
-    n="amrit"
-    e="abd@gmail.com"
-    d=2132132
-    p="kjdsakdjsk"
-    insert(n,e,p,d)
+     n="amrit"
+     e="abd@gmail.com"
+     d=2132132
+     p="kjdsakdjsk"
+     insert(n,e,p,d)
 
 def insert(n,e,p,id):
         try:
