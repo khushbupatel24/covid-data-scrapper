@@ -49,12 +49,14 @@ def uploadDataOnGit(file):
 
 
 def filter():
-    col_list = ["prname", "pruid","date","numconf","numdeaths","numtotal","numtested","numrecover","percentrecover","numtoday","percentoday","ratetotal","ratedeaths","percentactive","numdeathstoday","percentdeath","percentactive"]
+    col_list = ["prname", "pruid","date","numconf","numdeaths","numtotal","numtested","numrecover","percentrecover","numtoday","percentoday","ratetotal","ratedeaths","numactive","percentactive","numdeathstoday","percentdeath"]
     col1=["prname","numdeaths"] # columns for death chart
     col2=["prname","numtested"] # columns for tested chart
     col3=["prname","numrecover"] # columns for recovered chart
     col4=["prname","numtotal"]  # columns for total chart
     col5=["prname","percentactive"] #columns for active percentage
+    col6=["prname","numconf"]#column for confirmed cases
+    col7=["prname","numactive"] #column for active cases number
     yesterday = date.today() - timedelta(days=1)
     print("Date:", yesterday)
 
@@ -91,6 +93,18 @@ def filter():
     d=d.set_index("province")
     d.to_json (r'active.json') # file for active percentage cases
     uploadDataOnGit('active.json')
+
+    d=df_filtered.filter(col6)
+    d=d.rename(columns={"prname": "province", "numconf": "confirmed cases"})
+    d=d.set_index("province")
+    d.to_json (r'confirmed.json') # file for confirmed cases
+    uploadDataOnGit('confirmed.json')
+
+    d=df_filtered.filter(col7)
+    d=d.rename(columns={"prname": "province", "numactive": "active cases"})
+    d=d.set_index("province")
+    d.to_json (r'activenum.json') # file for active cases in number
+    uploadDataOnGit('activenum.json')
 
 filter()
 
