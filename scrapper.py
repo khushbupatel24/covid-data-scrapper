@@ -57,6 +57,7 @@ def filter():
     col5=["prname","percentactive"] #columns for active percentage
     col6=["prname","numconf"]#column for confirmed cases
     col7=["prname","numactive"] #column for active cases number
+    col8=["prname","numdeaths","numrecover","numtotal","numconf","numactive","numtested","percentactive"]#for table
     yesterday = date.today() - timedelta(days=1)
     print("Date:", yesterday)
 
@@ -105,6 +106,12 @@ def filter():
     d=d.set_index("province")
     d.to_json (r'activenum.json') # file for active cases in number
     uploadDataOnGit('activenum.json')
+
+    d=df_filtered.filter(col8)
+    d=d.rename(columns={"prname": "province","numdeaths": "number of deaths","numrecover": "recovered","numtotal": "total cases","numconf": "confirmed cases","numactive": "active cases","numtested": "people tested","percentactive": "active percentage"})
+    d=d.set_index("province")
+    d.to_json (r'table.json') # file for table
+    uploadDataOnGit('table.json')
 
 filter()
 
